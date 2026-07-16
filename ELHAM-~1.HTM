@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#1D9E75">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="My Roadmap">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon-192.png">
+<title>Elham's 6-Month Roadmap</title>
+<style>
+:root{
+  --bg:#ffffff;--bg1:#f6f6f4;--bg2:#ececea;
+  --text:#1a1a18;--text2:#5c5c58;--text3:#9c9c96;
+  --border:rgba(0,0,0,0.09);--border2:rgba(0,0,0,0.15);
+  --teal:#1D9E75;--teal-bg:#E1F5EE;--teal-t:#085041;
+  --purple:#534AB7;--purple-bg:#EEEDFE;--purple-t:#26215C;
+  --amber:#BA7517;--amber-bg:#FAEEDA;--amber-t:#412402;
+  --coral:#993C1D;--coral-bg:#FAECE7;--coral-t:#4A1B0C;
+  --blue:#185FA5;--blue-bg:#E6F1FB;--blue-t:#042C53;
+  --green:#2E7D32;--green-bg:#E8F5E2;--green-t:#1A3D10;
+  --r:12px;
+}
+@media(prefers-color-scheme:dark){:root{
+  --bg:#1b1b19;--bg1:#232321;--bg2:#2b2b29;
+  --text:#e6e6e0;--text2:#a6a6a0;--text3:#666660;
+  --border:rgba(255,255,255,0.07);--border2:rgba(255,255,255,0.13);
+  --teal-bg:#04342C;--teal-t:#9FE1CB;
+  --purple-bg:#26215C;--purple-t:#CECBF6;
+  --amber-bg:#412402;--amber-t:#FAC775;
+  --coral-bg:#4A1B0C;--coral-t:#F5C4B3;
+  --blue-bg:#042C53;--blue-t:#B5D4F4;
+  --green-bg:#1A3A10;--green-t:#A8E090;
+}}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
+.shell{display:flex;flex-direction:column;height:100%;height:100dvh}
+
+/* HEADER */
+.hdr{flex-shrink:0;padding:calc(env(safe-area-inset-top,14px) + 10px) 16px 12px;background:var(--bg);border-bottom:0.5px solid var(--border)}
+.hdr-title{font-size:17px;font-weight:700;letter-spacing:-.3px}
+.hdr-sub{font-size:12px;color:var(--text3);margin-top:2px}
+
+/* TOP TABS */
+.top-tabs{flex-shrink:0;display:flex;gap:0;overflow-x:auto;background:var(--bg);border-bottom:0.5px solid var(--border);padding:0 12px;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.top-tabs::-webkit-scrollbar{display:none}
+.ttab{flex-shrink:0;padding:10px 14px;font-size:13px;font-weight:500;color:var(--text3);border:none;background:none;cursor:pointer;border-bottom:2px solid transparent;transition:all .15s;white-space:nowrap}
+.ttab.on{color:var(--teal);border-bottom-color:var(--teal)}
+
+/* PAGES */
+.pages{flex:1;overflow:hidden;position:relative}
+.page{position:absolute;inset:0;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:14px 14px calc(env(safe-area-inset-bottom,0px) + 20px);display:none}
+.page.on{display:block}
+
+/* CARDS */
+.card{background:var(--bg1);border:0.5px solid var(--border);border-radius:var(--r);padding:13px 15px;margin-bottom:11px}
+.card-title{font-size:13px;font-weight:700;color:var(--text);margin-bottom:8px}
+.muted{font-size:13px;color:var(--text2);line-height:1.65}
+
+/* PHASE */
+.phase{margin-bottom:6px}
+.phase-pill{display:inline-block;font-size:11px;font-weight:700;padding:4px 12px;border-radius:99px;margin-bottom:10px}
+.tracks{display:flex;flex-direction:column;gap:8px}
+.track{background:var(--bg1);border:0.5px solid var(--border);border-radius:10px;padding:10px 12px}
+.track-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--text3);margin-bottom:7px}
+.track-item{font-size:13px;color:var(--text2);padding:5px 0;border-bottom:0.5px solid var(--border);line-height:1.45;display:flex;align-items:flex-start;gap:6px}
+.track-item:last-child{border-bottom:none}
+.track-item::before{content:"→";color:var(--text3);flex-shrink:0;margin-top:1px}
+.track-item.hot{color:var(--text);font-weight:500}
+.track-item.hot::before{content:"★";color:#E8A020;flex-shrink:0;margin-top:1px}
+
+/* WEEK SCHEDULE */
+.week-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-bottom:10px}
+.day-card{border-radius:10px;padding:10px 6px;text-align:center;border:0.5px solid var(--border);background:var(--bg1)}
+.day-name{font-size:10px;font-weight:700;color:var(--text3);margin-bottom:5px;text-transform:uppercase}
+.day-focus{font-size:12px;font-weight:700;color:var(--text);margin-bottom:3px;line-height:1.2}
+.day-sub{font-size:10px;color:var(--text3);line-height:1.3}
+
+/* INSIGHT ROWS */
+.insight-row{display:flex;gap:12px;align-items:flex-start;padding:10px 0;border-bottom:0.5px solid var(--border)}
+.insight-row:last-child{border-bottom:none}
+.insight-month{font-size:11px;font-weight:700;color:var(--text3);min-width:40px;padding-top:2px;text-transform:uppercase;flex-shrink:0}
+.insight-topic{font-size:13px;color:var(--text);font-weight:600;line-height:1.4;margin-bottom:3px}
+.insight-sub{font-size:12px;color:var(--text2);line-height:1.5}
+
+/* RESUME ROWS */
+.resume-row{display:flex;gap:12px;align-items:flex-start;padding:10px 0;border-bottom:0.5px solid var(--border)}
+.resume-row:last-child{border-bottom:none}
+.resume-month{font-size:11px;font-weight:700;color:var(--text3);min-width:40px;padding-top:2px;text-transform:uppercase;flex-shrink:0}
+.resume-add{font-size:13px;color:var(--text2);line-height:1.55}
+
+/* ALERT */
+.alert{background:var(--amber-bg);border:0.5px solid rgba(186,117,23,.35);border-radius:var(--r);padding:13px 15px;margin-bottom:11px}
+.alert-title{font-size:13px;font-weight:700;color:var(--amber-t);margin-bottom:5px}
+.alert-body{font-size:13px;color:var(--amber-t);line-height:1.65;opacity:.9}
+
+/* TIERS */
+.tier-section{margin-bottom:14px}
+.tier-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--text3);margin-bottom:8px}
+.tier-item{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:0.5px solid var(--border)}
+.tier-item:last-child{border-bottom:none}
+.tier-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.tier-name{font-size:14px;font-weight:600;color:var(--text)}
+.tier-why{font-size:12px;color:var(--text2);margin-top:2px;line-height:1.4}
+
+/* PILLS */
+.tp{background:var(--teal-bg);color:var(--teal-t)}
+.pp{background:var(--purple-bg);color:var(--purple-t)}
+.ap{background:var(--amber-bg);color:var(--amber-t)}
+.cp{background:var(--coral-bg);color:var(--coral-t)}
+.bp{background:var(--blue-bg);color:var(--blue-t)}
+.gp{background:var(--green-bg);color:var(--green-t)}
+
+/* COMEBACK */
+.comeback{background:var(--bg1);border-left:3px solid var(--teal);border-radius:0 10px 10px 0;padding:12px 14px;margin-bottom:10px}
+.cb-title{font-size:13px;font-weight:700;color:var(--teal);margin-bottom:5px}
+.cb-body{font-size:13px;color:var(--text2);line-height:1.65}
+
+.divider{border:none;border-top:0.5px solid var(--border);margin:10px 0}
+b{font-weight:600}
+</style>
+</head>
+<body>
+<div class="shell">
+
+<div class="hdr">
+  <div class="hdr-title">6-Month Expert Roadmap</div>
+  <div class="hdr-sub">July – December 2026 · Safety-AI expert · Spring/Summer 2027 role</div>
+</div>
+
+<div class="top-tabs">
+  <button class="ttab on" onclick="go('schedule',this)">Schedule</button>
+  <button class="ttab" onclick="go('months',this)">By month</button>
+  <button class="ttab" onclick="go('research',this)">Research</button>
+  <button class="ttab" onclick="go('insights',this)">Insights</button>
+  <button class="ttab" onclick="go('resume',this)">Resume</button>
+  <button class="ttab" onclick="go('oss',this)">Open source</button>
+  <button class="ttab" onclick="go('targets',this)">Targets</button>
+  <button class="ttab" onclick="go('mindset',this)">Mindset</button>
+</div>
+
+<div class="pages">
+
+<!-- SCHEDULE -->
+<div class="page on" id="pg-schedule">
+  <div class="card">
+    <div class="card-title">Daily 45-min industry block — fixed weekly rotation</div>
+    <div class="week-grid">
+      <div class="day-card" style="background:var(--teal-bg)">
+        <div class="day-name" style="color:var(--teal-t)">Mon</div>
+        <div class="day-focus" style="color:var(--teal-t)">GitHub</div>
+        <div class="day-sub" style="color:var(--teal-t)">READMEs · commits · contributions</div>
+      </div>
+      <div class="day-card" style="background:var(--purple-bg)">
+        <div class="day-name" style="color:var(--purple-t)">Tue</div>
+        <div class="day-focus" style="color:var(--purple-t)">CUDA #1</div>
+        <div class="day-sub" style="color:var(--purple-t)">Concepts · kernels · theory</div>
+      </div>
+      <div class="day-card" style="background:var(--blue-bg)">
+        <div class="day-name" style="color:var(--blue-t)">Wed</div>
+        <div class="day-focus" style="color:var(--blue-t)">LinkedIn / Blog</div>
+        <div class="day-sub" style="color:var(--blue-t)">Post · comment · write insight</div>
+      </div>
+      <div class="day-card" style="background:var(--purple-bg)">
+        <div class="day-name" style="color:var(--purple-t)">Thu</div>
+        <div class="day-focus" style="color:var(--purple-t)">CUDA #2</div>
+        <div class="day-sub" style="color:var(--purple-t)">Project · benchmarks</div>
+      </div>
+      <div class="day-card" style="background:var(--coral-bg)">
+        <div class="day-name" style="color:var(--coral-t)">Fri</div>
+        <div class="day-focus" style="color:var(--coral-t)">Interview + Resume</div>
+        <div class="day-sub" style="color:var(--coral-t)">LeetCode · update resume · apply</div>
+      </div>
+    </div>
+    <div class="muted">CUDA gets 2 days — it's your deepest gap and highest leverage. Resume updated every Friday, even a small line. Never more than 2 weeks out of date.</div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Application timing</div>
+    <div class="muted">
+      <b>Oct 2026</b> — Apply Tier 2 (Figure, Joby, medical AI) · DeepMind internship opens<br>
+      <b>Nov 2026</b> — Apply Tier 1 (Qualcomm, Waymo, NVIDIA, DeepMind)<br>
+      <b>Dec 2026</b> — Active interviews · negotiate around defense<br>
+      <b>Spring/Summer 2027</b> — Start date target
+    </div>
+  </div>
+
+  <div class="card" style="border-color:rgba(83,74,183,.3);background:var(--purple-bg)">
+    <div class="card-title" style="color:var(--purple-t)">Deep-work window 2 — Applied Research Scientist track</div>
+    <div class="muted" style="color:var(--purple-t)">Of your 3 daily PhD deep-work windows: window 1 stays dissertation, window 2 is now dedicated to the Applied Research Scientist track (PhD × LLM bridge — see Research tab), window 3 stays dissertation. The 45-min industry block (GitHub / CUDA / LinkedIn / interview prep) below is unchanged. Two parallel tracks, same daily structure.</div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">The $400k path — what you're building toward</div>
+    <div class="muted">You are training to be the person who answers "how do we know this AI won't fail dangerously?" That question becomes more valuable every year AI is deployed in physical systems — cars, medical devices, robots, power grids. Staff engineers with that skillset at Tier 1 companies earn $300k–$500k total comp. The 6 months below build that positioning systematically.</div>
+  </div>
+</div>
+
+<!-- BY MONTH -->
+<div class="page" id="pg-months">
+
+  <div class="phase">
+    <div class="phase-pill tp">July 2026 — Foundation sprint</div>
+    <div class="tracks">
+      <div class="track">
+        <div class="track-label">GitHub · Monday</div>
+        <div class="track-item hot">Write README for efficient-transformer-optimization</div>
+        <div class="track-item hot">Submit Modular MAX PR — do not wait for acquisition</div>
+        <div class="track-item">Add benchmark notebook to rl-fluid-resuscitation</div>
+        <div class="track-item">Pin 3 best repos on ELES-safe-autonomy profile</div>
+      </div>
+      <div class="track">
+        <div class="track-label">CUDA · Tue + Thu</div>
+        <div class="track-item">NVIDIA CUDA C++ guide chapters 1–4</div>
+        <div class="track-item">Set up dev environment + first kernel (vector add)</div>
+        <div class="track-item">Memory model: global vs shared vs registers</div>
+      </div>
+      <div class="track">
+        <div class="track-label">LinkedIn / Blog · Wednesday</div>
+        <div class="track-item hot">Post #1: "Why uncertainty quantification is the missing layer in deployed AI"</div>
+        <div class="track-item">Connect with 5 engineers at Waymo + Qualcomm</div>
+        <div class="track-item">Follow DeepMind Safety team researchers</div>
+      </div>
+      <div class="track">
+        <div class="track-label">Interview + Resume · Friday</div>
+        <div class="track-item">Set up LeetCode — 1 easy per week</div>
+        <div class="track-item">Rewrite PhD description in industry language</div>
+        <div class="track-item">Add GitHub link + Modular contribution to resume</div>
+      </div>
+      <div class="track">
+        <div class="track-label">Applied Research · window 2</div>
+        <div class="track-item hot">Finish Generative AI with LLMs course — mechanics, not just usage</div>
+        <div class="track-item">Start lit-review repo: llm-uncertainty-safety — log papers on UQ, hallucination, conformal prediction for LLMs</div>
+        <div class="track-item hot">One-page research framing draft with advisor — working title + core question</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="phase" style="margin-top:16px">
+    <div class="phase-pill pp">August 2026 — Build + first publication draft</div>
+    <div class="tracks">
+      <div class="track">
+        <div class="track-label">GitHub · Monday</div>
+        <div class="track-item hot">Start CUDA project: uncertainty-aware inference optimization</div>
+        <div class="track-item">Identify uncertainty-toolbox or conformal-prediction repo to contribute to</div>
+        <div class="track-item">Add CI badges + docstrings to market-ml-monitoring</div>
+      </div>
+      <div class="track">
+        <div class="track-label">CUDA · Tue + Thu</div>
+        <div class="track-item">Guide chapters 5–8: streams, async, occupancy</div>
+        <div class="track-item">Implement memory optimization kernel</div>
+        <div class="track-item hot">Benchmark uncertainty model: CUDA vs CPU baseline</div>
+      </div>
+      <div class="track">
+        <div class="track-label">LinkedIn / Blog · Wednesday</div>
+        <div class="track-item hot">Post #2: "What safety-critical AI requires beyond accuracy metrics"</div>
+        <div class="track-item">Comment on 2 DeepMind/Waymo researcher posts per week</div>
+        <div class="track-item">Share CUDA benchmark results as a short post</div>
+      </div>
+      <div class="track">
+        <div class="track-label">Interview + Resume · Friday</div>
+        <div class="track-item">Switch to 1 medium LeetCode per week</div>
+        <div class="track-item">Resume: add CUDA project + early benchmark numbers</div>
+        <div class="track-item hot">Start paper outline for ML4H workshop (RL fluid resuscitation)</div>
+      </div>
+      <div class="track">
+        <div class="track-label">Applied Research · window 2</div>
+        <div class="track-item hot">Build toy UQ-wrapped LLM decision pipeline (conformal prediction over LLM outputs)</div>
+        <div class="track-item">Narrow lit review to 2–3 candidate directions with advisor, pick one</div>
+        <div class="track-item">Push simulation notebook + benchmark results to GitHub</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="phase" style="margin-top:16px">
+    <div class="phase-pill ap">September 2026 — Publish + open source depth</div>
+    <div class="tracks">
+      <div class="track">
+        <div class="track-label">GitHub · Monday</div>
+        <div class="track-item hot">Complete + document CUDA project</div>
+        <div class="track-item hot">Second open source contribution (uncertainty or inference repo)</div>
+        <div class="track-item">Publish blog post #3 as GitHub Pages or Medium</div>
+      </div>
+      <div class="track">
+        <div class="track-label">CUDA · Tue + Thu</div>
+        <div class="track-item">Guide chapters 9–11: profiling + Nsight</div>
+        <div class="track-item">Profile project with Nsight Compute</div>
+        <div class="track-item">Write up performance analysis as a blog post</div>
+      </div>
+      <div class="track">
+        <div class="track-label">LinkedIn / Blog · Wednesday</div>
+        <div class="track-item hot">Post #3: "CUDA for uncertainty quantification — what I learned"</div>
+        <div class="track-item">DM 2 DeepMind researchers (comment first, then message)</div>
+        <div class="track-item">Share paper preprint link when ready</div>
+      </div>
+      <div class="track">
+        <div class="track-label">Interview + Resume · Friday</div>
+        <div class="track-item">2 medium LeetCode per week</div>
+        <div class="track-item">ML System Design: Chip Huyen book — start reading</div>
+        <div class="track-item hot">Submit paper to ML4H or Safe RL workshop</div>
+        <div class="track-item">Resume: add paper (submitted/preprint) + CUDA project</div>
+      </div>
+      <div class="track">
+        <div class="track-label">Applied Research · window 2</div>
+        <div class="track-item hot">Draft position/workshop paper from July–Aug simulation work</div>
+        <div class="track-item">Polish lit review into a related-work section</div>
+        <div class="track-item hot">Target a NeurIPS/ICML workshop or arXiv preprint — submit</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="phase" style="margin-top:16px">
+    <div class="phase-pill cp">October 2026 — Apply Tier 2 + interview prep</div>
+    <div class="tracks">
+      <div class="track">
+        <div class="track-label">GitHub · Monday</div>
+        <div class="track-item">Repos polished and frozen for applications</div>
+        <div class="track-item">Write profile-level README on ELES-safe-autonomy org page</div>
+        <div class="track-item">Push Strata React Native progress if any</div>
+      </div>
+      <div class="track">
+        <div class="track-label">CUDA · Tuesday only</div>
+        <div class="track-item">Reduce to 1 CUDA day — shift Thursday to interview prep</div>
+        <div class="track-item">Advanced topics: multi-GPU basics, NCCL</div>
+      </div>
+      <div class="track">
+        <div class="track-label">LinkedIn / Blog · Wednesday</div>
+        <div class="track-item hot">Post #4: "How my PhD connects to safe agentic AI deployment"</div>
+        <div class="track-item">Start getting referrals through LinkedIn contacts</div>
+        <div class="track-item">Share paper acceptance / preprint</div>
+      </div>
+      <div class="track">
+        <div class="track-label">Interview + Resume · Fri + Thu</div>
+        <div class="track-item hot">Apply to 5–8 Tier 2 roles (Figure, Joby, medical AI startups)</div>
+        <div class="track-item hot">DeepMind internship application — apply now</div>
+        <div class="track-item">Tailor resume: 2 versions (safety focus / inference focus)</div>
+        <div class="track-item">Mock interview #1 — Pramp or a friend</div>
+      </div>
+      <div class="track">
+        <div class="track-label">Applied Research · window 2</div>
+        <div class="track-item hot">Extend simulation to an autonomy- or healthcare-relevant decision task</div>
+        <div class="track-item">Fold this work into Modular/Waymo materials — applied research scientist framing, not just engineer</div>
+        <div class="track-item">Repo README + reproducible experiment polish</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="phase" style="margin-top:16px">
+    <div class="phase-pill bp">November 2026 — Tier 1 applications</div>
+    <div class="tracks">
+      <div class="track">
+        <div class="track-label">GitHub · Monday</div>
+        <div class="track-item">Keep commit history active — min 2 commits/week</div>
+        <div class="track-item">Third open source contribution if bandwidth allows</div>
+      </div>
+      <div class="track">
+        <div class="track-label">CUDA · Tuesday</div>
+        <div class="track-item">1 day only — maintain, don't start new projects</div>
+        <div class="track-item">Prep CUDA-specific interview questions</div>
+      </div>
+      <div class="track">
+        <div class="track-label">LinkedIn / Blog · Wednesday</div>
+        <div class="track-item hot">Post #5: your strongest, most opinionated technical take</div>
+        <div class="track-item">Engage with Qualcomm AI research team posts</div>
+      </div>
+      <div class="track">
+        <div class="track-label">Interview + Resume · Fri + Thu</div>
+        <div class="track-item hot">Apply: Qualcomm · Waymo · NVIDIA · DeepMind</div>
+        <div class="track-item">2 mock interviews per week</div>
+        <div class="track-item">ML system design: practice uncertainty + safety scenarios</div>
+        <div class="track-item">Protect dissertation writing time — PhD first</div>
+      </div>
+      <div class="track">
+        <div class="track-label">Applied Research · window 2</div>
+        <div class="track-item hot">Revise/resubmit paper based on reviews, or extend toward a full paper</div>
+        <div class="track-item hot">Apply specifically to applied/research scientist roles, not only engineering roles</div>
+        <div class="track-item">Use published/submitted work as your core interview talking point</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="phase" style="margin-top:16px">
+    <div class="phase-pill gp">December 2026 — Interview season + PhD finish</div>
+    <div class="tracks">
+      <div class="track">
+        <div class="track-label">GitHub · Monday</div>
+        <div class="track-item">Frozen — no new projects</div>
+        <div class="track-item">Small fixes / documentation to stay green</div>
+      </div>
+      <div class="track">
+        <div class="track-label">Technical · Tuesday</div>
+        <div class="track-item">Interview prep only</div>
+        <div class="track-item">Review your own CUDA + uncertainty work to speak fluently</div>
+      </div>
+      <div class="track">
+        <div class="track-label">LinkedIn / Blog · Wednesday</div>
+        <div class="track-item">Post #6: year-in-review or PhD defense reflection</div>
+        <div class="track-item">Thank people who helped — builds long-term goodwill</div>
+      </div>
+      <div class="track">
+        <div class="track-label">PhD + Offers · Fri</div>
+        <div class="track-item hot">Defend dissertation if timeline holds</div>
+        <div class="track-item">Negotiate start dates around defense</div>
+        <div class="track-item">Evaluate offers: equity + growth, not just base salary</div>
+      </div>
+      <div class="track">
+        <div class="track-label">Applied Research · window 2</div>
+        <div class="track-item">Research-interview prep: paper walkthroughs, research-proposal Q&amp;A — different from LeetCode prep</div>
+        <div class="track-item">Update publication status on resume + GitHub</div>
+        <div class="track-item">Dissertation defense — shared with PhD track</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- RESEARCH TRACK -->
+<div class="page" id="pg-research">
+  <div class="card">
+    <div class="card-title">Applied Research Scientist — PhD × LLM bridge</div>
+    <div class="muted">Runs in deep-work window 2, alongside the dissertation (window 1 &amp; 3) and the existing CUDA/GitHub 45-min block. Goal: turn your PhD (Bayesian/RL uncertainty quantification for safety-critical control) into a demonstrated research thread on uncertainty and safety in LLM-based decision systems — the profile Modular, Waymo, and similar companies mean when they say they want a PhD who solves real problems, not just an engineer.</div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Reading anchors — start here</div>
+    <div class="muted">
+      <b>Directly on your intersection:</b><br>
+      · "SafePath: Conformal Prediction for Safe LLM-Based Autonomous Navigation" (arXiv 2505.09427)<br>
+      · "Efficient Non-Parametric Uncertainty Quantification for Black-Box LLMs and Decision Planning" (arXiv 2402.00251)<br><br>
+      <b>Build the map outward from there:</b> conformal prediction for LLMs · calibration &amp; hallucination detection · LLM-based agents for sequential decision-making · safe RL + LLM hybrids. Log every paper in the GitHub repo below, even a one-line note — the log is the literature review.
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Courses</div>
+    <div class="muted">Generative AI with Large Language Models — finish in July, treat it as mechanics (attention, training, inference behavior), not a usage tutorial. Add any other current course you're enrolled in here as you go; this list should stay current, not frozen from today.</div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Simulation — grows month over month</div>
+    <div class="muted">
+      <b>Aug:</b> toy pipeline — wrap an LLM's outputs in a conformal-prediction/UQ layer on a simple decision task. Same shape as your PhD's RBF/Bayesian control loop, applied to an LLM instead of a physiological model.<br>
+      <b>Oct:</b> extend to a realistic domain — autonomy-flavored (LLM-as-planner with calibrated uncertainty) or healthcare-flavored (leans on your biomedical background). This becomes the flagship portfolio piece.
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Publication plan</div>
+    <div class="muted">
+      <b>Sep</b> — position/workshop paper draft from the July–Aug work, submit to a NeurIPS/ICML workshop or arXiv.<br>
+      <b>Nov</b> — revise/resubmit based on reviews, or extend toward a full paper for a spring venue.<br>
+      <b>Dec</b> — status locked in on resume + GitHub regardless of outcome; submitted/preprint still counts as signal.
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">GitHub</div>
+    <div class="muted">New repo: <b>llm-uncertainty-safety</b> — literature notes, simulation code, benchmark results, and paper drafts in one place. Commit weekly, same discipline as the CUDA track. This repo is the evidence that the research proposal isn't just a conversation with your advisor — it's a documented, reproducible thread.</div>
+  </div>
+</div>
+
+<!-- INSIGHTS -->
+<div class="page" id="pg-insights">
+  <div class="card">
+    <div class="card-title">One public insight per month — your safety-AI expert voice</div>
+    <div class="muted">Write on LinkedIn first (200–300 words). If it gets traction, expand to a blog post. Each one builds your public identity as a safety-critical AI expert — the thing that separates $180k engineers from $400k ones five years from now.</div>
+  </div>
+  <div class="card">
+    <div class="insight-row">
+      <div class="insight-month">Jul</div>
+      <div>
+        <div class="insight-topic">Why uncertainty quantification is the missing layer in deployed AI</div>
+        <div class="insight-sub">Your PhD thesis made accessible. Lead with a real example — "when I modeled fluid resuscitation, here's what happens when you ignore uncertainty..." Most engineers don't think about this. You do.</div>
+      </div>
+    </div>
+    <div class="insight-row">
+      <div class="insight-month">Aug</div>
+      <div>
+        <div class="insight-topic">What safety-critical AI actually requires beyond accuracy metrics</div>
+        <div class="insight-sub">F1 score doesn't tell you if a system fails safely. Calibration, coverage guarantees, conformal prediction. Accessible take on a deep topic. Perfect for the Waymo / autonomy audience.</div>
+      </div>
+    </div>
+    <div class="insight-row">
+      <div class="insight-month">Sep</div>
+      <div>
+        <div class="insight-topic">What I learned optimizing uncertainty inference with CUDA</div>
+        <div class="insight-sub">Technical post with real benchmark numbers from your project. Shows you can build, not just theorize. Share the GitHub link. Engineers reshare this kind of post.</div>
+      </div>
+    </div>
+    <div class="insight-row">
+      <div class="insight-month">Oct</div>
+      <div>
+        <div class="insight-topic">How my PhD research connects to safe agentic AI deployment</div>
+        <div class="insight-sub">The bridge post. Connects your academic work to the current AI agent boom. Positions you as someone who saw this coming. Target DeepMind and Anthropic readers.</div>
+      </div>
+    </div>
+    <div class="insight-row">
+      <div class="insight-month">Nov</div>
+      <div>
+        <div class="insight-topic">One specific thing the industry gets wrong about AI reliability</div>
+        <div class="insight-sub">Your strongest, most opinionated post. Pick the thing that frustrates you most from your research. Be specific and defensible. This is the post that gets you DMs from researchers.</div>
+      </div>
+    </div>
+    <div class="insight-row">
+      <div class="insight-month">Dec</div>
+      <div>
+        <div class="insight-topic">What I built, learned, and published in 2026</div>
+        <div class="insight-sub">Year in review. Links to your paper, CUDA project, GitHub, Strata app. A single post that serves as your public portfolio. Pin it to your LinkedIn profile.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- RESUME -->
+<div class="page" id="pg-resume">
+  <div class="card">
+    <div class="card-title">Resume updated every Friday — what to add each month</div>
+    <div class="muted">Never let your resume fall more than 2 weeks behind your actual work. Small weekly additions are easier than a big overhaul before every application.</div>
+  </div>
+  <div class="card">
+    <div class="resume-row">
+      <div class="resume-month">Jul</div>
+      <div class="resume-add">Rewrite PhD as "uncertainty-aware models for safety-critical AI systems" · Add ELES-safe-autonomy GitHub · Add Modular MAX PR link · Add Skills: Python, PyTorch, CUDA (learning), C++, uncertainty quantification, safe autonomy</div>
+    </div>
+    <div class="resume-row">
+      <div class="resume-month">Aug</div>
+      <div class="resume-add">Add CUDA project under Projects with X% speedup vs CPU baseline · Add benchmark numbers · Add second open source contribution if started</div>
+    </div>
+    <div class="resume-row">
+      <div class="resume-month">Sep</div>
+      <div class="resume-add">Add paper: "Submitted to ML4H Workshop, NeurIPS 2026" or "arXiv preprint: [link]" · Update CUDA project with profiling results · Add LinkedIn if follower count growing</div>
+    </div>
+    <div class="resume-row">
+      <div class="resume-month">Oct</div>
+      <div class="resume-add">Split into 2 versions: (1) Safety/autonomy focus for Waymo/Figure/DeepMind · (2) Inference/efficiency focus for Qualcomm/NVIDIA · Update paper status</div>
+    </div>
+    <div class="resume-row">
+      <div class="resume-month">Nov</div>
+      <div class="resume-add">Add paper acceptance if received · Add "Expected graduation: [month] 2027" · Add Strata as "iOS app in development (React Native)" · Freeze except for new achievements</div>
+    </div>
+    <div class="resume-row">
+      <div class="resume-month">Dec</div>
+      <div class="resume-add">Final polish — one page strictly · Add defense date · Remove anything pre-2020 that isn't directly relevant · Have one engineer friend review it</div>
+    </div>
+  </div>
+</div>
+
+<!-- OPEN SOURCE -->
+<div class="page" id="pg-oss">
+  <div class="alert">
+    <div class="alert-title">⚡ Modular/Qualcomm deal — act this week</div>
+    <div class="alert-body">Qualcomm agreed to acquire Modular for ~$3.9B, deal closes H2 2026. Submit your MAX PR now — before the team reorganizes post-acquisition. A merged PR from the pre-acquisition Modular team is a stronger signal. Your friend at Modular: ask them to flag your PR to the team internally.</div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Your current signal</div>
+    <div class="muted">
+      <b>openelm-max-contribution</b> — Good. Submit PR now. Signals relevance to both Modular and Qualcomm simultaneously.<br><br>
+      <b>modular fork</b> — Passive. Doesn't count as a contribution.<br><br>
+      <b>efficient-transformer-optimization</b> — Needs a README before it signals anything.<br><br>
+      <b>rl-fluid-resuscitation</b> — Your best story. Needs a demo notebook and benchmark results.
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Two more contributions needed by October</div>
+    <div class="muted">
+      <b>Contribution #2 — August · uncertainty repo</b><br>
+      · uncertainty-toolbox (Youngseog Chung) — UQ library, your PhD maps directly<br>
+      · conformal-prediction repos — active research community, DeepMind-visible<br>
+      · Even a tutorial notebook or documentation fix counts<br><br>
+      <b>Contribution #3 — September · inference repo</b><br>
+      · vllm-project/vllm — very active, high visibility, Qualcomm engineers contribute here<br>
+      · huggingface/optimum — inference optimization, hardware-aware, CUDA-relevant<br>
+      · Connect your CUDA project output back into one of these as a PR<br><br>
+      <b>What DeepMind wants to see:</b> 3 contributions across 3 different repos in your domain, at least 1 merged. Shows you can navigate unfamiliar codebases — key signal for research engineering roles.
+    </div>
+  </div>
+</div>
+
+<!-- TARGETS -->
+<div class="page" id="pg-targets">
+  <div class="card">
+    <div class="card-title">Tier 1 — primary targets</div>
+    <div class="tier-section">
+      <div class="tier-item">
+        <div class="tier-dot" style="background:var(--teal)"></div>
+        <div>
+          <div class="tier-name">Qualcomm</div>
+          <div class="tier-why">Now owns Modular stack. Your MAX contribution is directly relevant to their edge-to-cloud AI strategy. CUDA skills align with their silicon + software focus.</div>
+        </div>
+      </div>
+      <div class="tier-item">
+        <div class="tier-dot" style="background:var(--teal)"></div>
+        <div>
+          <div class="tier-name">Waymo</div>
+          <div class="tier-why">Safety-critical AI is their entire business. Your PhD on uncertainty + safe systems is exactly what they need. Apply safety track version of resume.</div>
+        </div>
+      </div>
+      <div class="tier-item">
+        <div class="tier-dot" style="background:var(--teal)"></div>
+        <div>
+          <div class="tier-name">Google DeepMind</div>
+          <div class="tier-why">Care deeply about AI safety + reliability. Need stronger open source signal (3 contributions). Internship applications open Sep–Oct. Engage with their researchers on LinkedIn first.</div>
+        </div>
+      </div>
+      <div class="tier-item">
+        <div class="tier-dot" style="background:var(--teal)"></div>
+        <div>
+          <div class="tier-name">NVIDIA</div>
+          <div class="tier-why">CUDA expertise is their native language. Your inference optimization work speaks directly to them. Apply after CUDA project is complete (September).</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-title">Tier 2 — apply October 2026</div>
+    <div class="tier-section">
+      <div class="tier-item">
+        <div class="tier-dot" style="background:var(--purple)"></div>
+        <div><div class="tier-name">Figure AI</div><div class="tier-why">Physical AI + safety. Well-funded humanoid robotics. Your uncertainty modeling is relevant.</div></div>
+      </div>
+      <div class="tier-item">
+        <div class="tier-dot" style="background:var(--purple)"></div>
+        <div><div class="tier-name">Joby Aviation</div><div class="tier-why">Safety-critical autonomy for air taxis. Highly regulated — your safe systems background is premium here.</div></div>
+      </div>
+      <div class="tier-item">
+        <div class="tier-dot" style="background:var(--purple)"></div>
+        <div><div class="tier-name">Medical AI companies</div><div class="tier-why">Medtronic AI, Abbott, Viz.ai — FDA-regulated AI needs uncertainty quantification expertise badly. Often overlooked by CS grads, less competition for you.</div></div>
+      </div>
+      <div class="tier-item">
+        <div class="tier-dot" style="background:var(--purple)"></div>
+        <div><div class="tier-name">Anthropic</div><div class="tier-why">AI safety is their core mission. Your PhD framing around safe + reliable AI systems aligns well. Apply safety research engineering track.</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MINDSET -->
+<div class="page" id="pg-mindset">
+  <div class="muted" style="margin-bottom:14px">Read this when you feel behind, scared about AI replacing you, or like the plan is too much.</div>
+
+  <div class="comeback">
+    <div class="cb-title">On AI replacing engineers</div>
+    <div class="cb-body">AI replaces tasks, not judgment. The engineers who get replaced are the ones whose entire value was in the tasks. Your value is in understanding what happens when AI fails in the real world — and how to prevent it. That question becomes more valuable every year, not less.</div>
+  </div>
+
+  <div class="comeback">
+    <div class="cb-title">On the $400k path</div>
+    <div class="cb-body">It is real and it is achievable for you specifically. Staff engineers at Waymo, Qualcomm, and NVIDIA with your profile earn $300k–$500k total comp. The credential (PhD) opens the door. The demonstrated work — GitHub, publications, public writing — is what closes the offer. You are building both.</div>
+  </div>
+
+  <div class="comeback">
+    <div class="cb-title">On feeling behind other engineers</div>
+    <div class="cb-body">Most CS graduates don't have what you have: 4 years of deep work on a hard, specific, important problem. They have broader skills and shallower depth. Companies paying $400k+ are not buying breadth — they are buying the rare person who went deep on something that matters. That is you.</div>
+  </div>
+
+  <div class="comeback">
+    <div class="cb-title">On the 45 minutes feeling like not enough</div>
+    <div class="cb-body">45 minutes compounded daily over 6 months is 135 hours of focused industry work on top of your PhD. That is more than most people spend in a year. Consistency beats intensity every time. Show up for 45 minutes and then stop. Trust the system.</div>
+  </div>
+
+  <div class="comeback">
+    <div class="cb-title">On the Qualcomm/Modular news</div>
+    <div class="cb-body">This is not a threat to your plan — it is a gift. You already have a contribution to the Modular codebase. That repo is now owned by a $180B company that is specifically trying to build the AI inference stack you are learning with CUDA. Your timing is good. Submit the PR this week.</div>
+  </div>
+
+  <div class="card" style="border-color:rgba(29,158,117,.3);background:var(--teal-bg);margin-top:4px">
+    <div style="font-size:13px;font-weight:700;color:var(--teal-t);margin-bottom:5px">What success looks like in 5 years</div>
+    <div class="muted" style="color:var(--teal-t)">You are a Staff or Senior Research Engineer at a company deploying AI in the physical world. You are publicly known for one specific technical position on safe AI systems. You have a merged paper, a shipped app, and a GitHub that tells a coherent story. You earn $350k–$500k total comp. You got there by showing up for 45 minutes a day, writing one insight per month, and finishing your PhD.<br><br><b>That person is already in this plan. You just have to execute it.</b></div>
+  </div>
+</div>
+
+</div><!-- /pages -->
+</div><!-- /shell -->
+
+<script>
+function go(id,btn){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('on'));
+  document.querySelectorAll('.ttab').forEach(b=>b.classList.remove('on'));
+  document.getElementById('pg-'+id).classList.add('on');
+  if(btn)btn.classList.add('on');
+}
+if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js').catch(()=>{});
+</script>
+</body>
+</html>
