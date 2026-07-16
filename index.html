@@ -133,6 +133,7 @@ b{font-weight:600}
 <div class="top-tabs">
   <button class="ttab on" onclick="go('schedule',this)">Schedule</button>
   <button class="ttab" onclick="go('months',this)">By month</button>
+  <button class="ttab" onclick="go('research',this)">Research</button>
   <button class="ttab" onclick="go('insights',this)">Insights</button>
   <button class="ttab" onclick="go('resume',this)">Resume</button>
   <button class="ttab" onclick="go('oss',this)">Open source</button>
@@ -186,6 +187,11 @@ b{font-weight:600}
     </div>
   </div>
 
+  <div class="card" style="border-color:rgba(83,74,183,.3);background:var(--purple-bg)">
+    <div class="card-title" style="color:var(--purple-t)">Deep-work window 2 — Applied Research Scientist track</div>
+    <div class="muted" style="color:var(--purple-t)">Of your 3 daily PhD deep-work windows: window 1 stays dissertation, window 2 is now dedicated to the Applied Research Scientist track (PhD × LLM bridge — see Research tab), window 3 stays dissertation. The 45-min industry block (GitHub / CUDA / LinkedIn / interview prep) below is unchanged. Two parallel tracks, same daily structure.</div>
+  </div>
+
   <div class="card">
     <div class="card-title">The $400k path — what you're building toward</div>
     <div class="muted">You are training to be the person who answers "how do we know this AI won't fail dangerously?" That question becomes more valuable every year AI is deployed in physical systems — cars, medical devices, robots, power grids. Staff engineers with that skillset at Tier 1 companies earn $300k–$500k total comp. The 6 months below build that positioning systematically.</div>
@@ -223,6 +229,12 @@ b{font-weight:600}
         <div class="track-item">Rewrite PhD description in industry language</div>
         <div class="track-item">Add GitHub link + Modular contribution to resume</div>
       </div>
+      <div class="track">
+        <div class="track-label">Applied Research · window 2</div>
+        <div class="track-item hot">Finish Generative AI with LLMs course — mechanics, not just usage</div>
+        <div class="track-item">Start lit-review repo: llm-uncertainty-safety — log papers on UQ, hallucination, conformal prediction for LLMs</div>
+        <div class="track-item hot">One-page research framing draft with advisor — working title + core question</div>
+      </div>
     </div>
   </div>
 
@@ -252,6 +264,12 @@ b{font-weight:600}
         <div class="track-item">Switch to 1 medium LeetCode per week</div>
         <div class="track-item">Resume: add CUDA project + early benchmark numbers</div>
         <div class="track-item hot">Start paper outline for ML4H workshop (RL fluid resuscitation)</div>
+      </div>
+      <div class="track">
+        <div class="track-label">Applied Research · window 2</div>
+        <div class="track-item hot">Build toy UQ-wrapped LLM decision pipeline (conformal prediction over LLM outputs)</div>
+        <div class="track-item">Narrow lit review to 2–3 candidate directions with advisor, pick one</div>
+        <div class="track-item">Push simulation notebook + benchmark results to GitHub</div>
       </div>
     </div>
   </div>
@@ -284,6 +302,12 @@ b{font-weight:600}
         <div class="track-item hot">Submit paper to ML4H or Safe RL workshop</div>
         <div class="track-item">Resume: add paper (submitted/preprint) + CUDA project</div>
       </div>
+      <div class="track">
+        <div class="track-label">Applied Research · window 2</div>
+        <div class="track-item hot">Draft position/workshop paper from July–Aug simulation work</div>
+        <div class="track-item">Polish lit review into a related-work section</div>
+        <div class="track-item hot">Target a NeurIPS/ICML workshop or arXiv preprint — submit</div>
+      </div>
     </div>
   </div>
 
@@ -314,6 +338,12 @@ b{font-weight:600}
         <div class="track-item">Tailor resume: 2 versions (safety focus / inference focus)</div>
         <div class="track-item">Mock interview #1 — Pramp or a friend</div>
       </div>
+      <div class="track">
+        <div class="track-label">Applied Research · window 2</div>
+        <div class="track-item hot">Extend simulation to an autonomy- or healthcare-relevant decision task</div>
+        <div class="track-item">Fold this work into Modular/Waymo materials — applied research scientist framing, not just engineer</div>
+        <div class="track-item">Repo README + reproducible experiment polish</div>
+      </div>
     </div>
   </div>
 
@@ -342,6 +372,12 @@ b{font-weight:600}
         <div class="track-item">ML system design: practice uncertainty + safety scenarios</div>
         <div class="track-item">Protect dissertation writing time — PhD first</div>
       </div>
+      <div class="track">
+        <div class="track-label">Applied Research · window 2</div>
+        <div class="track-item hot">Revise/resubmit paper based on reviews, or extend toward a full paper</div>
+        <div class="track-item hot">Apply specifically to applied/research scientist roles, not only engineering roles</div>
+        <div class="track-item">Use published/submitted work as your core interview talking point</div>
+      </div>
     </div>
   </div>
 
@@ -369,9 +405,60 @@ b{font-weight:600}
         <div class="track-item">Negotiate start dates around defense</div>
         <div class="track-item">Evaluate offers: equity + growth, not just base salary</div>
       </div>
+      <div class="track">
+        <div class="track-label">Applied Research · window 2</div>
+        <div class="track-item">Research-interview prep: paper walkthroughs, research-proposal Q&amp;A — different from LeetCode prep</div>
+        <div class="track-item">Update publication status on resume + GitHub</div>
+        <div class="track-item">Dissertation defense — shared with PhD track</div>
+      </div>
     </div>
   </div>
 
+</div>
+
+<!-- RESEARCH TRACK -->
+<div class="page" id="pg-research">
+  <div class="card">
+    <div class="card-title">Applied Research Scientist — PhD × LLM bridge</div>
+    <div class="muted">Runs in deep-work window 2, alongside the dissertation (window 1 &amp; 3) and the existing CUDA/GitHub 45-min block. Goal: turn your PhD (Bayesian/RL uncertainty quantification for safety-critical control) into a demonstrated research thread on uncertainty and safety in LLM-based decision systems — the profile Modular, Waymo, and similar companies mean when they say they want a PhD who solves real problems, not just an engineer.</div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Reading anchors — start here</div>
+    <div class="muted">
+      <b>Directly on your intersection:</b><br>
+      · "SafePath: Conformal Prediction for Safe LLM-Based Autonomous Navigation" (arXiv 2505.09427)<br>
+      · "Efficient Non-Parametric Uncertainty Quantification for Black-Box LLMs and Decision Planning" (arXiv 2402.00251)<br><br>
+      <b>Build the map outward from there:</b> conformal prediction for LLMs · calibration &amp; hallucination detection · LLM-based agents for sequential decision-making · safe RL + LLM hybrids. Log every paper in the GitHub repo below, even a one-line note — the log is the literature review.
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Courses</div>
+    <div class="muted">Generative AI with Large Language Models — finish in July, treat it as mechanics (attention, training, inference behavior), not a usage tutorial. Add any other current course you're enrolled in here as you go; this list should stay current, not frozen from today.</div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Simulation — grows month over month</div>
+    <div class="muted">
+      <b>Aug:</b> toy pipeline — wrap an LLM's outputs in a conformal-prediction/UQ layer on a simple decision task. Same shape as your PhD's RBF/Bayesian control loop, applied to an LLM instead of a physiological model.<br>
+      <b>Oct:</b> extend to a realistic domain — autonomy-flavored (LLM-as-planner with calibrated uncertainty) or healthcare-flavored (leans on your biomedical background). This becomes the flagship portfolio piece.
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Publication plan</div>
+    <div class="muted">
+      <b>Sep</b> — position/workshop paper draft from the July–Aug work, submit to a NeurIPS/ICML workshop or arXiv.<br>
+      <b>Nov</b> — revise/resubmit based on reviews, or extend toward a full paper for a spring venue.<br>
+      <b>Dec</b> — status locked in on resume + GitHub regardless of outcome; submitted/preprint still counts as signal.
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">GitHub</div>
+    <div class="muted">New repo: <b>llm-uncertainty-safety</b> — literature notes, simulation code, benchmark results, and paper drafts in one place. Commit weekly, same discipline as the CUDA track. This repo is the evidence that the research proposal isn't just a conversation with your advisor — it's a documented, reproducible thread.</div>
+  </div>
 </div>
 
 <!-- INSIGHTS -->
